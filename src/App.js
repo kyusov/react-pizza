@@ -5,6 +5,14 @@ import { Home, Cart } from './pages'
 import { Header } from './components'
 
 function App() {
+	const [pizzas, setPizzas] = React.useState([])
+
+	React.useEffect(() => {
+		fetch('http://react-pizza-server.herokuapp.com/pizza')
+			.then((response) => response.json())
+			.then((json) => setPizzas(json.pizzas))
+	}, [])
+
 	return (
 		<div className='wrapper'>
 			<Header />
