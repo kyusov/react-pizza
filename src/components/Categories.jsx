@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 function Categories({ items }) {
   const [activeItem, setActiveItem] = React.useState(null)
@@ -24,6 +25,14 @@ function Categories({ items }) {
       </ul>
     </div>
   )
+}
+
+Categories.propTypes = {
+  items: PropTypes.arrayOf(PropTypes.string),
+}
+
+Categories.defaultProps = {
+  items: [],
 }
 
 export default Categories
