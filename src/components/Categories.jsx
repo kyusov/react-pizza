@@ -1,11 +1,11 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 
-function Categories({ items }) {
+const Categories = React.memo(function Categories({ items, onClickItem }) {
   const [activeItem, setActiveItem] = React.useState(null)
 
   const onSelectItem = (index) => {
     setActiveItem(index)
+    onClickItem(index)
   }
 
   return (
@@ -25,14 +25,6 @@ function Categories({ items }) {
       </ul>
     </div>
   )
-}
-
-Categories.propTypes = {
-  items: PropTypes.arrayOf(PropTypes.string),
-}
-
-Categories.defaultProps = {
-  items: [],
-}
+})
 
 export default Categories

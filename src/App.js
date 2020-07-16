@@ -1,16 +1,18 @@
 import React from 'react'
-import { Route } from 'react-router-dom'
 import axios from 'axios'
+import { useDispatch } from 'react-redux'
 
 import { Home, Cart } from './pages'
 import { Header } from './components'
+import { Route } from 'react-router-dom'
+import { setPizzas } from './redux/actions/pizzas'
 
 function App() {
-  const [pizzas, setPizzas] = React.useState([])
+  const dispatch = useDispatch()
 
   React.useEffect(() => {
     axios.get('http://react-pizza-server.herokuapp.com/pizza').then(({ data }) => {
-      setPizzas(data.pizzas)
+      dispatch(setPizzas(data.pizzas))
     })
   }, [])
 
@@ -18,7 +20,7 @@ function App() {
     <div className="wrapper">
       <Header />
       <div className="content">
-        <Route path="/" render={() => <Home items={pizzas} />} exact />
+        <Route path="/" component={Home} exact />
         <Route path="/cart" component={Cart} exact />
       </div>
     </div>
@@ -26,3 +28,17 @@ function App() {
 }
 
 export default App
+// const mapStateToProps = (state) => {
+//   return {
+//     items: state.pizzas.items,
+//     filters: state.filters,
+//   }
+// }
+
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     setPizzas: (items) => dispatch(setPizzas(items)),
+//   }
+// }
+
+// export default connect(mapStateToProps, mapDispatchToProps)(App)
